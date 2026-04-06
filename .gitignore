@@ -9,6 +9,7 @@ node_modules/
 **/.claude/
 **/CLAUDE.md
 **/AGENTS.md
+skills-lock.json
 
 # Next.js
 .next/
