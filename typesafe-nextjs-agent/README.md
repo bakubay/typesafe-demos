@@ -19,6 +19,13 @@ A multi-agent AI chat application built with [Next.js](https://nextjs.org), [Mas
 - **UI:** Tailwind CSS 4, shadcn/ui, Radix UI, Rive animations
 - **Storage:** LibSQL (Turso)
 
+## Prerequisites
+
+- Node.js >= 22
+- [pnpm](https://pnpm.io/)
+- An [OpenAI API key](https://platform.openai.com)
+- A [TypeSafe AI API key](https://typesafe.ai)
+
 ## Getting Started
 
 1. Copy the environment template and add your API keys:
@@ -26,6 +33,8 @@ A multi-agent AI chat application built with [Next.js](https://nextjs.org), [Mas
    ```bash
    cp .env.example .env
    ```
+
+   Fill in `OPENAI_API_KEY` and `TYPESAFE_API_KEY` at minimum. `PAGEINDEX_API_KEY` is optional (used for document chat).
 
 2. Install dependencies and run:
 

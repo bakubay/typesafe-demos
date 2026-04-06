@@ -31,7 +31,7 @@ Authenticate with a provider API key or `/login` as described in the [pi quick s
 Register this extension with pi so it loads on startup:
 
 ```bash
-pi install git:github.com/Typesafe-ai/typesafe-observer
+pi install git:github.com/bakubay/typesafe-demos/typesafe-observer-pi
 ```
 
 That installs the package and enables the extension. If it does not appear right away, run `/reload` in pi or check **Extensions** in `/settings` / `pi config`.
@@ -39,7 +39,7 @@ That installs the package and enables the extension. If it does not appear right
 To try it once without persisting the install:
 
 ```bash
-pi -e git:github.com/Typesafe-ai/typesafe-observer
+pi -e git:github.com/bakubay/typesafe-demos/typesafe-observer-pi
 ```
 
 ## Setup
