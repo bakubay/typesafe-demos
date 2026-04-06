@@ -30,20 +30,3 @@ Real-time coding session mood monitor for the [pi](https://github.com/badlogic/p
 
 **Stack:** TypeScript, pi extension API, TypeSafe AI evaluation API
 
----
-
-## What is TypeSafe AI?
-
-TypeSafe AI provides deterministic text evaluation — classify, score, and measure probability over text without consuming LLM tokens. All three demos use the same HTTP API (`https://api.typesafe.ai/preview`) with three core primitives:
-
-| Primitive | Returns | Example use |
-|-----------|---------|-------------|
-| **Noul** | Probability (0-1) that a yes/no statement is true | "This review is positive" &rarr; `0.87` |
-| **Choice** | Classification + optional confidence / full distribution | Sentiment &rarr; `"positive"` (0.78 confidence) |
-| **Score** | Expected value on a numeric scale | Helpfulness 1-5 &rarr; `3.72` |
-
-Get an API key at [typesafe.ai](https://typesafe.ai).
-
-## License
-
-MIT
