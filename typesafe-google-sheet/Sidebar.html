@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #1a1a1a;
+      background: #fafafa;
+      padding: 20px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: #0f172a;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .logo-text {
+      font-weight: 600;
+      font-size: 15px;
+      color: #0f172a;
+    }
+
+    .section {
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #374151;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input[type="password"],
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: inherit;
+      background: white;
+      transition: border-color 0.15s;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #0f172a;
+      box-shadow: 0 0 0 3px rgba(15,23,42,0.08);
+    }
+
+    .hint {
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+    .hint a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    button {
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+
+    .btn-primary {
+      background: #0f172a;
+      color: white;
+      flex: 1;
+    }
+    .btn-primary:hover { background: #1e293b; }
+    .btn-primary:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #374151;
+      border: 1px solid #d1d5db;
+    }
+    .btn-secondary:hover { background: #f3f4f6; }
+
+    .btn-danger {
+      background: white;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+    .btn-danger:hover { background: #fef2f2; }
+
+    .status {
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      margin-top: 12px;
+      display: none;
+    }
+    .status.success {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      display: block;
+    }
+    .status.error {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+      display: block;
+    }
+    .status.info {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+      display: block;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #e5e7eb;
+      margin: 20px 0;
+    }
+
+    .key-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+    .key-status .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .dot.active { background: #22c55e; }
+    .dot.inactive { background: #d1d5db; }
+
+    .model-loading {
+      color: #9ca3af;
+      font-style: italic;
+      font-size: 12px;
+      padding: 8px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo">
+    <div class="logo-icon">T</div>
+    <div class="logo-text">TypeSafe AI</div>
+  </div>
+
+  <!-- API Key -->
+  <div class="section">
+    <div class="key-status">
+      <span class="dot" id="keyDot"></span>
+      <span id="keyStatusText"></span>
+    </div>
+    <label for="apiKey">API Key</label>
+    <input type="password" id="apiKey" placeholder="ts_xxxxxxxxxxxxxxxx" />
+    <div class="hint">Get your key at XXXXX</a></div>
+    <div class="btn-row">
+      <button class="btn-primary" id="saveBtn" onclick="saveKey()">Save</button>
+      <button class="btn-secondary" onclick="testConn()">Test</button>
+    </div>
+    <div id="keyStatus" class="status"></div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Model -->
+  <div class="section">
+    <label for="model">Model</label>
+    <select id="model" onchange="saveModelChoice()">
+      <option value="speed_latest">speed_latest (default)</option>
+    </select>
+    <div class="hint">Select which TypeSafe model to use for evaluations.</div>
+    <div id="modelStatus" class="status"></div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Danger zone -->
+  <div class="section">
+    <button class="btn-danger" onclick="clearKey()">Remove API key</button>
+    <div class="hint" style="margin-top: 6px;">Removes the key from your Google account storage.</div>
+  </div>
+
+  <script>
+    // Load current state on open
+    google.script.run.withSuccessHandler(function(key) {
+      var dot = document.getElementById('keyDot');
+      var text = document.getElementById('keyStatusText');
+      if (key) {
+        document.getElementById('apiKey').value = key;
+        dot.className = 'dot active';
+        text.textContent = 'Key configured';
+        loadModels();
+      } else {
+        dot.className = 'dot inactive';
+        text.textContent = 'No key set';
+      }
+    }).getApiKey();
+
+    google.script.run.withSuccessHandler(function(model) {
+      if (model) {
+        document.getElementById('model').value = model;
+      }
+    }).getModel();
+
+    function saveKey() {
+      var key = document.getElementById('apiKey').value.trim();
+      if (!key) {
+        showStatus('keyStatus', 'Please enter an API key.', 'error');
+        return;
+      }
+      document.getElementById('saveBtn').disabled = true;
+      document.getElementById('saveBtn').textContent = 'Saving...';
+
+      google.script.run
+        .withSuccessHandler(function() {
+          showStatus('keyStatus', 'API key saved.', 'success');
+          document.getElementById('keyDot').className = 'dot active';
+          document.getElementById('keyStatusText').textContent = 'Key configured';
+          document.getElementById('saveBtn').disabled = false;
+          document.getElementById('saveBtn').textContent = 'Save';
+          loadModels();
+        })
+        .withFailureHandler(function(e) {
+          showStatus('keyStatus', 'Failed: ' + e.message, 'error');
+          document.getElementById('saveBtn').disabled = false;
+          document.getElementById('saveBtn').textContent = 'Save';
+        })
+        .saveApiKey(key);
+    }
+
+    function testConn() {
+      showStatus('keyStatus', 'Testing connection...', 'info');
+      google.script.run
+        .withSuccessHandler(function() {
+          // testConnection shows its own alert
+          hideStatus('keyStatus');
+        })
+        .withFailureHandler(function(e) {
+          showStatus('keyStatus', 'Error: ' + e.message, 'error');
+        })
+        .testConnection();
+    }
+
+    function clearKey() {
+      if (!confirm('Remove your API key?')) return;
+      google.script.run
+        .withSuccessHandler(function() {
+          document.getElementById('apiKey').value = '';
+          document.getElementById('keyDot').className = 'dot inactive';
+          document.getElementById('keyStatusText').textContent = 'No key set';
+          showStatus('keyStatus', 'API key removed.', 'success');
+        })
+        .clearApiKey();
+    }
+
+    function saveModelChoice() {
+      var model = document.getElementById('model').value;
+      google.script.run
+        .withSuccessHandler(function() {
+          showStatus('modelStatus', 'Model set to ' + model, 'success');
+          setTimeout(function() { hideStatus('modelStatus'); }, 2000);
+        })
+        .saveModel(model);
+    }
+
+    function loadModels() {
+      google.script.run
+        .withSuccessHandler(function(models) {
+          if (!models || !models.length) return;
+          var select = document.getElementById('model');
+          var current = select.value;
+          select.innerHTML = '';
+          models.forEach(function(m) {
+            var opt = document.createElement('option');
+            opt.value = m.name;
+            opt.textContent = m.name + (m.description ? ' — ' + m.description : '');
+            select.appendChild(opt);
+          });
+          // Restore selection
+          if (current) select.value = current;
+          // If current not in list, add it
+          if (select.value !== current && current) {
+            var opt = document.createElement('option');
+            opt.value = current;
+            opt.textContent = current;
+            select.appendChild(opt);
+            select.value = current;
+          }
+        })
+        .fetchModels();
+    }
+
+    function showStatus(id, msg, type) {
+      var el = document.getElementById(id);
+      el.textContent = msg;
+      el.className = 'status ' + type;
+    }
+
+    function hideStatus(id) {
+      document.getElementById(id).className = 'status';
+    }
+  </script>
+
+</body>
+</html>

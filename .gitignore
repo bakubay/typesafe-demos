@@ -1,0 +1,23 @@
+.DS_Store
+node_modules/
+.env
+.env.*
+!.env.example
+
+# AI agent configs (local dev tooling)
+**/.agents/
+**/.claude/
+**/CLAUDE.md
+**/AGENTS.md
+
+# Next.js
+.next/
+out/
+
+# Mastra local databases
+mastra.db*
+mastra.duckdb*
+
+# Build
+*.tsbuildinfo
+next-env.d.ts

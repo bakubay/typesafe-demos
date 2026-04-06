@@ -1,0 +1,17 @@
+{
+  "name": "@typesafe-ai/pi-observer",
+  "version": "0.1.0",
+  "description": "Pi extension that monitors session mood, tracks frustration, and adapts agent behavior using TypeSafe AI evaluation",
+  "keywords": ["pi-package"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Typesafe-ai/typesafe-observer"
+  },
+  "pi": {
+    "extensions": ["./extensions"]
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*"
+  }
+}
